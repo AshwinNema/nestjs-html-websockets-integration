@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Socket</title>
+  </head>
+  <body>
+    <input id="data-input" />
+    <button onclick="sendMessage()">Send message</button>
+  </body>
+  <script>
+    let socketConnection = new WebSocket('http://localhost:3000');
+    socketConnection.onmessage = (data) => {
+      console.log(data);
+    };
+
+    function sendMessage() {
+      const data = document.getElementById('data-input');
+
+      socketConnection.send(
+        JSON.stringify({
+          data: data.value,
+          event: 'message',
+        }),
+      );
+    }
+  </script>
+</html>
